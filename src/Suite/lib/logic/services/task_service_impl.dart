@@ -29,6 +29,12 @@ class TaskServiceImpl extends TaskService {
       whereArgs: [id, userId],
     );
 
+    await db.delete(
+      CompletedTask.dbName,
+      where: 'taskId = ? and taskUserId = ?',
+      whereArgs: [id, userId]
+    );
+
     await db.close();
   }
 

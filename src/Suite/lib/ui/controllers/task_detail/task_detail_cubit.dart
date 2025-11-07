@@ -10,7 +10,10 @@ class TaskDetailCubit extends Cubit<TaskDetailState> {
   final TaskService taskService;
   final CompletedTaskService completedTaskService;
 
-  TaskDetailCubit({required this.taskService, required this.completedTaskService}) : super(TaskDetailState());
+  TaskDetailCubit({
+    required this.taskService,
+    required this.completedTaskService,
+  }) : super(TaskDetailState());
 
   Future<void> init(Task task) async {
     state.taskWrapper = TaskWrapper(task: task, completedTasks: []);
@@ -20,11 +23,33 @@ class TaskDetailCubit extends Cubit<TaskDetailState> {
   }
 
   Future<void> reload() async {
-    final wrapper = await taskService.readTaskWrapperById(state.taskWrapper.task.id, state.taskWrapper.task.userId);
+    final wrapper = await taskService.readTaskWrapperById(
+      state.taskWrapper.task.id,
+      state.taskWrapper.task.userId,
+    );
     emit(state.copyWith(taskWrapper: wrapper));
   }
 
   Future<void> deleteCompletedTask(final CompletedTask ct) async {
     await completedTaskService.delete(ct.taskId, ct.taskUserId, ct.done);
+  }
+
+  Future<void> deleteTask() async {
+    await taskService.delete(
+      state.taskWrapper.task.id,
+      state.taskWrapper.task.userId,
+    );
+  }
+
+  Future<void> taskDone() async {
+    await completedTaskService.create(
+      CompletedTask(
+        taskId: state.taskWrapper.task.id,
+        taskUserId: state.taskWrapper.task.userId,
+        userId: '',
+        done: DateTime.now(),
+      ),
+    );
+    await reload();
   }
 }
