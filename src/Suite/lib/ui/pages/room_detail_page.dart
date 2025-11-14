@@ -39,6 +39,12 @@ class RoomDetailPage extends StatelessWidget {
                   final taskWrapper = state.tasks[index];
                   return ListTile(
                     title: Text(taskWrapper.task.name),
+                    onTap: () async {
+                      await context.router.push(TaskDetailRoute(task: taskWrapper.task));
+                      if(context.mounted) {
+                        await context.read<RoomDetailCubit>().refreshTasks();
+                      }
+                    },
                     subtitle: Text(taskWrapper.intervalText()),
                     trailing: IconButton(
                       onPressed: () async => await context
