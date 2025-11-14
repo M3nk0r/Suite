@@ -18,7 +18,7 @@ class TaskDetailCubit extends Cubit<TaskDetailState> {
   Future<void> init(Task task) async {
     state.taskWrapper = TaskWrapper(task: task, completedTasks: []);
     final wrapper = await taskService.readTaskWrapperById(task.id, task.userId);
-
+    wrapper.sortCompletedTasksByDoneDesc();
     emit(state.copyWith(taskWrapper: wrapper));
   }
 
@@ -27,6 +27,7 @@ class TaskDetailCubit extends Cubit<TaskDetailState> {
       state.taskWrapper.task.id,
       state.taskWrapper.task.userId,
     );
+    wrapper.sortCompletedTasksByDoneDesc();
     emit(state.copyWith(taskWrapper: wrapper));
   }
 
