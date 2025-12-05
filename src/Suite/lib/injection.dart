@@ -1,10 +1,18 @@
 import 'package:get_it/get_it.dart';
 import 'package:suite/data/db_context.dart';
+import 'package:suite/logic/services/category_service_impl.dart';
 import 'package:suite/logic/services/completed_task_service_impl.dart';
+import 'package:suite/logic/services/interfaces/category_service.dart';
 import 'package:suite/logic/services/interfaces/completed_task_service.dart';
 import 'package:suite/logic/services/interfaces/room_service.dart';
+import 'package:suite/logic/services/interfaces/shopping_item_service.dart';
+import 'package:suite/logic/services/interfaces/shopping_list_item_service.dart';
+import 'package:suite/logic/services/interfaces/shopping_list_service.dart';
 import 'package:suite/logic/services/interfaces/task_service.dart';
 import 'package:suite/logic/services/room_service_impl.dart';
+import 'package:suite/logic/services/shopping_item_service_impl.dart';
+import 'package:suite/logic/services/shopping_list_item_service_impl.dart';
+import 'package:suite/logic/services/shopping_list_service_impl.dart';
 import 'package:suite/logic/services/task_service_impl.dart';
 import 'package:suite/ui/controllers/home/home_cubit.dart';
 import 'package:suite/ui/controllers/room_detail/room_detail_cubit.dart';
@@ -26,6 +34,10 @@ Future<void> init() async {
   sl.registerLazySingleton<RoomService>(() => RoomServiceImpl(context: sl()));
   sl.registerLazySingleton<TaskService>(() => TaskServiceImpl(context: sl()));
   sl.registerLazySingleton<CompletedTaskService>(() => CompletedTaskServiceImpl(context: sl()));
+  sl.registerLazySingleton<CategoryService>(() => CategoryServiceImpl(context: sl()));
+  sl.registerLazySingleton<ShoppingListService>(() => ShoppingListServiceImpl(context: sl()));
+  sl.registerLazySingleton<ShoppingListItemService>(() => ShoppingListItemServiceImpl(context: sl()));
+  sl.registerLazySingleton<ShoppingItemService>(() => ShoppingItemServiceImpl(context: sl()));
 
   // Database
   sl.registerLazySingleton<DbContext>(() => DbContext());

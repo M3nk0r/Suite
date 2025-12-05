@@ -35,5 +35,48 @@ class Migrations {
         foreign key (taskId, taskUserId) references Task
 );
     ''',
+    4: '''create table Category
+(
+    id     TEXT not null,
+    userId TEXT not null,
+    name   TEXT not null,
+    color  TEXT not null,
+    constraint Category_pk
+        primary key (id, userId)
+);
+    ''',
+    5: '''create table ShoppingItem
+(
+    id             TEXT not null,
+    userId         TEXT not null,
+    name           TEXT not null,
+    categoryId     TEXT not null,
+    categoryUserId TEXT not null,
+    constraint ShoppingItem_pk
+        primary key (id, userId),
+    constraint ShoppingItem_Category_id_userId_fk
+        foreign key (categoryId, categoryUserId) references Category
+);
+    ''',
+    6: '''create table ShoppingList
+(
+    id     TEXT not null,
+    userId TEXT not null,
+    name   TEXT not null,
+    constraint ShoppingList_pk
+        primary key (id, userId)
+);
+    ''',
+    7: '''create table ShoppingListItem
+(
+    shoppingListId TEXT    not null,
+    shoppingItemId TEXT    not null,
+    count          integer not null,
+    note           TEXT,
+    bought         integer not null,
+    constraint ShoppingListItem_pk
+        primary key (shoppingListId, shoppingItemId)
+);
+  '''
   };
 }
