@@ -4,6 +4,8 @@ class Category {
   final String name;
   final String color;
 
+  static const dbName = 'Category';
+
   Category({
     required this.id,
     required this.userId,

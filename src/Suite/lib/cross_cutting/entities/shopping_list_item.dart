@@ -5,6 +5,8 @@ class ShoppingListItem {
   final String? note;
   final bool bought;
 
+  static const dbName = 'ShoppingListItem';
+
   ShoppingListItem({
     required this.shoppingListId,
     required this.shoppingItemId,

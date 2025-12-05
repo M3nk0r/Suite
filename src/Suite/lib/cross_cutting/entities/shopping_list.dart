@@ -3,6 +3,8 @@ class ShoppingList {
   final String userId;
   final String name;
 
+  static const dbName = 'ShoppingList';
+
   ShoppingList({required this.id, required this.userId, required this.name});
 
   Map<String, dynamic> toMap() {

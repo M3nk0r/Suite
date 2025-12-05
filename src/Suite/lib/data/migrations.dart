@@ -47,14 +47,15 @@ class Migrations {
     ''',
     5: '''create table ShoppingItem
 (
-    id         TEXT not null,
-    userId     TEXT not null,
-    name       TEXT not null,
-    categoryId TEXT not null,
-    constraint ShoppingItem_Category_id_fk
-            references Category (id),
+    id             TEXT not null,
+    userId         TEXT not null,
+    name           TEXT not null,
+    categoryId     TEXT not null,
+    categoryUserId TEXT not null,
     constraint ShoppingItem_pk
-        primary key (id, userId)
+        primary key (id, userId),
+    constraint ShoppingItem_Category_id_userId_fk
+        foreign key (categoryId, categoryUserId) references Category
 );
     ''',
     6: '''create table ShoppingList
