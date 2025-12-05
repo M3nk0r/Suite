@@ -19,7 +19,6 @@ class RoomOverviewPage extends StatelessWidget {
       child: BlocBuilder<RoomOverviewCubit, RoomOverviewState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(title: Text('Tasks')),
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
                 final roomName = await showDialog<String?>(
