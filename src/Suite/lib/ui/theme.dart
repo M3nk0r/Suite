@@ -31,7 +31,7 @@ class AppTheme {
     brightness: Brightness.dark,
     primary: Color(0xffaac7ff),
     surfaceTint: Color(0xffaac7ff),
-    onPrimary: Color(0xff002f64),
+    onPrimary: Color(0xffffffff),
     primaryContainer: Color(0xff00326a),
     onPrimaryContainer: Color(0xffd9e4f8),
     secondary: Color(0xffffffff),

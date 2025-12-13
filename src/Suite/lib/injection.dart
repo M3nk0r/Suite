@@ -15,9 +15,14 @@ import 'package:suite/logic/services/shopping_list_item_service_impl.dart';
 import 'package:suite/logic/services/shopping_list_service_impl.dart';
 import 'package:suite/logic/services/task_service_impl.dart';
 import 'package:suite/ui/controllers/base/base_cubit.dart';
+import 'package:suite/ui/controllers/category/category_cubit.dart';
+import 'package:suite/ui/controllers/category_overview/category_overview_cubit.dart';
 import 'package:suite/ui/controllers/home/home_cubit.dart';
 import 'package:suite/ui/controllers/room_detail/room_detail_cubit.dart';
 import 'package:suite/ui/controllers/room_overview/room_overview_cubit.dart';
+import 'package:suite/ui/controllers/shopping/shopping_cubit.dart';
+import 'package:suite/ui/controllers/shopping_item/shopping_item_cubit.dart';
+import 'package:suite/ui/controllers/shopping_list/shopping_list_cubit.dart';
 import 'package:suite/ui/controllers/task_detail/task_detail_cubit.dart';
 import 'package:suite/ui/controllers/task_form/task_form_cubit.dart';
 
@@ -28,18 +33,37 @@ Future<void> init() async {
   sl.registerFactory(() => BaseCubit());
   sl.registerFactory(() => HomeCubit());
   sl.registerFactory(() => RoomOverviewCubit(roomService: sl()));
-  sl.registerFactory(() => RoomDetailCubit(taskService: sl(), completedTaskService: sl()));
+  sl.registerFactory(
+    () => RoomDetailCubit(taskService: sl(), completedTaskService: sl()),
+  );
   sl.registerFactory(() => TaskFormCubit(taskService: sl()));
-  sl.registerFactory(() => TaskDetailCubit(taskService: sl(), completedTaskService: sl()));
+  sl.registerFactory(
+    () => TaskDetailCubit(taskService: sl(), completedTaskService: sl()),
+  );
+  sl.registerFactory(() => ShoppingCubit());
+  sl.registerFactory(() => ShoppingListCubit());
+  sl.registerFactory(() => ShoppingItemCubit());
+  sl.registerFactory(() => CategoryCubit());
+  sl.registerFactory(() => CategoryOverviewCubit());
 
   //Services
   sl.registerLazySingleton<RoomService>(() => RoomServiceImpl(context: sl()));
   sl.registerLazySingleton<TaskService>(() => TaskServiceImpl(context: sl()));
-  sl.registerLazySingleton<CompletedTaskService>(() => CompletedTaskServiceImpl(context: sl()));
-  sl.registerLazySingleton<CategoryService>(() => CategoryServiceImpl(context: sl()));
-  sl.registerLazySingleton<ShoppingListService>(() => ShoppingListServiceImpl(context: sl()));
-  sl.registerLazySingleton<ShoppingListItemService>(() => ShoppingListItemServiceImpl(context: sl()));
-  sl.registerLazySingleton<ShoppingItemService>(() => ShoppingItemServiceImpl(context: sl()));
+  sl.registerLazySingleton<CompletedTaskService>(
+    () => CompletedTaskServiceImpl(context: sl()),
+  );
+  sl.registerLazySingleton<CategoryService>(
+    () => CategoryServiceImpl(context: sl()),
+  );
+  sl.registerLazySingleton<ShoppingListService>(
+    () => ShoppingListServiceImpl(context: sl()),
+  );
+  sl.registerLazySingleton<ShoppingListItemService>(
+    () => ShoppingListItemServiceImpl(context: sl()),
+  );
+  sl.registerLazySingleton<ShoppingItemService>(
+    () => ShoppingItemServiceImpl(context: sl()),
+  );
 
   // Database
   sl.registerLazySingleton<DbContext>(() => DbContext());
