@@ -6,8 +6,8 @@ import 'package:suite/injection.dart';
 import 'package:suite/ui/controllers/base/base_cubit.dart';
 import 'package:suite/ui/controllers/base/base_state.dart';
 import 'package:suite/ui/pages/home_page.dart';
-import 'package:suite/ui/pages/option_page.dart';
 import 'package:suite/ui/pages/room_overview_page.dart';
+import 'package:suite/ui/pages/shopping_page.dart';
 import 'package:suite/ui/router.gr.dart';
 
 @RoutePage()
@@ -46,6 +46,8 @@ class BasePage extends StatelessWidget {
                   return HomePage();
                 case 1:
                   return RoomOverviewPage();
+                case 2:
+                  return ShoppingPage();
               }
               return Placeholder();
             }),
