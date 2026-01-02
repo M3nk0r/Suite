@@ -43,8 +43,8 @@ Future<void> init() async {
   sl.registerFactory(() => ShoppingCubit());
   sl.registerFactory(() => ShoppingListCubit());
   sl.registerFactory(() => ShoppingItemCubit());
-  sl.registerFactory(() => CategoryCubit());
-  sl.registerFactory(() => CategoryOverviewCubit());
+  sl.registerFactory(() => CategoryCubit(categoryService: sl()));
+  sl.registerFactory(() => CategoryOverviewCubit(categoryService: sl()));
 
   //Services
   sl.registerLazySingleton<RoomService>(() => RoomServiceImpl(context: sl()));

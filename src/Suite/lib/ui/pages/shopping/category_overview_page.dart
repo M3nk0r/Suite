@@ -14,14 +14,41 @@ class CategoryOverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<CategoryOverviewCubit>(),
+      create: (context) => sl<CategoryOverviewCubit>()..init(),
       child: BlocBuilder<CategoryOverviewCubit, CategoryOverviewState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(title: Text('Category')),
             floatingActionButton: FloatingActionButton(
-              onPressed: () => context.router.push(CategoryRoute()),
+              onPressed: () async {
+                await context.router.push(CategoryRoute());
+
+                if (context.mounted) {
+                  await context.read<CategoryOverviewCubit>().refresh();
+                }
+              },
               child: Icon(Icons.add),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.builder(
+                itemCount: state.categories.length,
+                itemBuilder: (context, index) {
+                  final category = state.categories[index];
+                  return ListTile(
+                    title: Text(category.name),
+                    onTap: () async {
+                      await context.router.push(
+                        CategoryRoute(category: category),
+                      );
+
+                      if (context.mounted) {
+                        await context.read<CategoryOverviewCubit>().refresh();
+                      }
+                    },
+                  );
+                },
+              ),
             ),
           );
         },
