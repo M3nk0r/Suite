@@ -11,8 +11,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i15;
 import 'package:flutter/material.dart' as _i17;
+import 'package:suite/cross_cutting/entities/category.dart' as _i18;
 import 'package:suite/cross_cutting/entities/room.dart' as _i16;
-import 'package:suite/cross_cutting/entities/task.dart' as _i18;
+import 'package:suite/cross_cutting/entities/task.dart' as _i19;
 import 'package:suite/ui/pages/add_task_page.dart' as _i1;
 import 'package:suite/ui/pages/base_page.dart' as _i2;
 import 'package:suite/ui/pages/home_page.dart' as _i5;
@@ -109,18 +110,51 @@ class CategoryOverviewRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.CategoryPage]
-class CategoryRoute extends _i15.PageRouteInfo<void> {
-  const CategoryRoute({List<_i15.PageRouteInfo>? children})
-    : super(CategoryRoute.name, initialChildren: children);
+class CategoryRoute extends _i15.PageRouteInfo<CategoryRouteArgs> {
+  CategoryRoute({
+    _i18.Category? category,
+    _i17.Key? key,
+    List<_i15.PageRouteInfo>? children,
+  }) : super(
+         CategoryRoute.name,
+         args: CategoryRouteArgs(category: category, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'CategoryRoute';
 
   static _i15.PageInfo page = _i15.PageInfo(
     name,
     builder: (data) {
-      return const _i4.CategoryPage();
+      final args = data.argsAs<CategoryRouteArgs>(
+        orElse: () => const CategoryRouteArgs(),
+      );
+      return _i4.CategoryPage(category: args.category, key: args.key);
     },
   );
+}
+
+class CategoryRouteArgs {
+  const CategoryRouteArgs({this.category, this.key});
+
+  final _i18.Category? category;
+
+  final _i17.Key? key;
+
+  @override
+  String toString() {
+    return 'CategoryRouteArgs{category: $category, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CategoryRouteArgs) return false;
+    return category == other.category && key == other.key;
+  }
+
+  @override
+  int get hashCode => category.hashCode ^ key.hashCode;
 }
 
 /// generated route for
@@ -330,7 +364,7 @@ class ShoppingRoute extends _i15.PageRouteInfo<void> {
 /// [_i14.TaskDetailPage]
 class TaskDetailRoute extends _i15.PageRouteInfo<TaskDetailRouteArgs> {
   TaskDetailRoute({
-    required _i18.Task task,
+    required _i19.Task task,
     _i17.Key? key,
     List<_i15.PageRouteInfo>? children,
   }) : super(
@@ -353,7 +387,7 @@ class TaskDetailRoute extends _i15.PageRouteInfo<TaskDetailRouteArgs> {
 class TaskDetailRouteArgs {
   const TaskDetailRouteArgs({required this.task, this.key});
 
-  final _i18.Task task;
+  final _i19.Task task;
 
   final _i17.Key? key;
 

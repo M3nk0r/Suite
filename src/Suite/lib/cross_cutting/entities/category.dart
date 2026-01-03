@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 class Category {
   final String id;
   final String userId;
@@ -14,7 +16,7 @@ class Category {
   });
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'userId': userId, 'name': name, 'color': color,};
+    return {'id': id, 'userId': userId, 'name': name, 'color': color};
   }
 
   factory Category.fromMap(Map<String, dynamic> map) {
@@ -26,6 +28,7 @@ class Category {
     );
   }
 
-
-
+  factory Category.create({required userId, required name, required color}) {
+    return Category(id: Uuid().v8(), userId: userId, name: name, color: color);
+  }
 }
