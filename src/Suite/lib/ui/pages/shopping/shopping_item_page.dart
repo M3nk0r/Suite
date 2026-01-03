@@ -14,13 +14,18 @@ class ShoppingItemPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<ShoppingItemCubit>(),
       child: BlocBuilder<ShoppingItemCubit, ShoppingItemState>(
-          builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('Item'),
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(title: Text('Item')),
+            body: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [],
               ),
-            );
-          }
+            ),
+          );
+        },
       ),
     );
   }

@@ -42,7 +42,9 @@ Future<void> init() async {
   );
   sl.registerFactory(() => ShoppingCubit());
   sl.registerFactory(() => ShoppingListCubit());
-  sl.registerFactory(() => ShoppingItemCubit());
+  sl.registerFactory(
+    () => ShoppingItemCubit(shoppingItemService: sl(), categoryService: sl()),
+  );
   sl.registerFactory(() => CategoryCubit(categoryService: sl()));
   sl.registerFactory(() => CategoryOverviewCubit(categoryService: sl()));
 
