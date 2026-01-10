@@ -22,20 +22,35 @@ class ShoppingItemCubit extends Cubit<ShoppingItemState> {
        );
 
   Future<void> init(ShoppingItem? oldShoppingItem) async {
-    final categories = await categoryService.read();
-    emit(state.copyWith(categories: categories));
-
     if (oldShoppingItem != null) {
-      final category = categories.where(
-        (x) =>
-            x.id == oldShoppingItem.categoryId &&
-            x.userId == oldShoppingItem.categoryUserId,
-      ).first;
       emit(
         state.copyWith(
           oldShoppingItem: oldShoppingItem,
           name: oldShoppingItem.name,
-          selectedCategory: category
+        ),
+      );
+    }
+
+    final categories = await categoryService.read();
+    emit(
+      state.copyWith(
+        categories: categories,
+        selectedCategory: categories.first,
+      ),
+    );
+
+    if (oldShoppingItem != null) {
+      final category = categories
+          .where(
+            (x) =>
+                x.id == oldShoppingItem.categoryId &&
+                x.userId == oldShoppingItem.categoryUserId,
+          )
+          .first;
+
+      emit(
+        state.copyWith(
+          selectedCategory: category,
         ),
       );
     }
@@ -66,7 +81,7 @@ class ShoppingItemCubit extends Cubit<ShoppingItemState> {
 
   Future<void> update() async {
     final shoppingItem = ShoppingItem(
-      id: state.oldShoppingItem!.userId,
+      id: state.oldShoppingItem!.id,
       userId: state.oldShoppingItem!.userId,
       name: state.name,
       categoryId: state.selectedCategory!.id,
@@ -76,7 +91,17 @@ class ShoppingItemCubit extends Cubit<ShoppingItemState> {
     await shoppingItemService.update(shoppingItem);
   }
 
+  Future<void> delete() async {
+    if(state.oldShoppingItem == null){
+      return;
+    }
+    
+    await shoppingItemService.delete(state.oldShoppingItem!);
+
+  }
+
   void onChangeName(String value) => emit(state.copyWith(name: value));
 
-  void onSelectCategory(Category value) {}
+  void onSelectCategory(Category? value) =>
+      emit(state.copyWith(selectedCategory: value));
 }

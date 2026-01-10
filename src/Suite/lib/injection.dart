@@ -22,6 +22,7 @@ import 'package:suite/ui/controllers/room_detail/room_detail_cubit.dart';
 import 'package:suite/ui/controllers/room_overview/room_overview_cubit.dart';
 import 'package:suite/ui/controllers/shopping/shopping_cubit.dart';
 import 'package:suite/ui/controllers/shopping_item/shopping_item_cubit.dart';
+import 'package:suite/ui/controllers/shopping_item_overview/shopping_item_overview_cubit.dart';
 import 'package:suite/ui/controllers/shopping_list/shopping_list_cubit.dart';
 import 'package:suite/ui/controllers/task_detail/task_detail_cubit.dart';
 import 'package:suite/ui/controllers/task_form/task_form_cubit.dart';
@@ -44,6 +45,9 @@ Future<void> init() async {
   sl.registerFactory(() => ShoppingListCubit());
   sl.registerFactory(
     () => ShoppingItemCubit(shoppingItemService: sl(), categoryService: sl()),
+  );
+  sl.registerFactory(
+    () => ShoppingItemOverviewCubit(shoppingItemService: sl()),
   );
   sl.registerFactory(() => CategoryCubit(categoryService: sl()));
   sl.registerFactory(() => CategoryOverviewCubit(categoryService: sl()));

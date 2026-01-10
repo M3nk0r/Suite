@@ -40,7 +40,7 @@ class ShoppingPage extends StatelessWidget {
                     ),
                   ),
                   containerColor: theme.colorScheme.primaryContainer,
-                  onTap: () => context.router.push(ShoppingItemRoute()),
+                  onTap: () => context.router.push(ShoppingItemOverviewRoute()),
                 ),
                 CircleButton(
                   size: 64,
