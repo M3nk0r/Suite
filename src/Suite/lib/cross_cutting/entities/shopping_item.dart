@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 class ShoppingItem {
   final String id;
   final String userId;
@@ -32,6 +34,21 @@ class ShoppingItem {
       name: map['name'] as String,
       categoryId: map['categoryId'] as String,
       categoryUserId: map['categoryUserId'] as String,
+    );
+  }
+
+  factory ShoppingItem.create({
+    required userId,
+    required name,
+    required categoryId,
+    required categoryUserId,
+  }) {
+    return ShoppingItem(
+      id: Uuid().v8(),
+      userId: userId,
+      name: name,
+      categoryId: categoryId,
+      categoryUserId: categoryUserId,
     );
   }
 }
