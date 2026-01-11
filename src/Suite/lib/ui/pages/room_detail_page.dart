@@ -37,6 +37,19 @@ class RoomDetailPage extends StatelessWidget {
                 itemCount: state.tasks.length,
                 itemBuilder: (context, index) {
                   final taskWrapper = state.tasks[index];
+
+                  String subtitle = '';
+
+                  if(taskWrapper.difference() == 0) {
+                    subtitle = 'Now';
+                  }
+                  else if( taskWrapper.difference().isNegative){
+                    subtitle = 'Due for ${-taskWrapper.difference()} days';
+                  }
+                  else {
+                    subtitle = 'Due in ${taskWrapper.difference()} days';
+                  }
+
                   return ListTile(
                     title: Text(taskWrapper.task.name),
                     onTap: () async {
@@ -45,7 +58,7 @@ class RoomDetailPage extends StatelessWidget {
                         await context.read<RoomDetailCubit>().refreshTasks();
                       }
                     },
-                    subtitle: Text(taskWrapper.intervalText()),
+                    subtitle: Text(subtitle),
                     trailing: IconButton(
                       onPressed: () async => await context
                           .read<RoomDetailCubit>()
