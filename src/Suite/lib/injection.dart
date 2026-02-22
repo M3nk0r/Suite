@@ -41,8 +41,8 @@ Future<void> init() async {
   sl.registerFactory(
     () => TaskDetailCubit(taskService: sl(), completedTaskService: sl()),
   );
-  sl.registerFactory(() => ShoppingCubit());
-  sl.registerFactory(() => ShoppingListCubit());
+  sl.registerFactory(() => ShoppingCubit(shoppingListService: sl()));
+  sl.registerFactory(() => ShoppingListCubit(shoppingListItemService: sl(), shoppingItemService: sl()));
   sl.registerFactory(
     () => ShoppingItemCubit(shoppingItemService: sl(), categoryService: sl()),
   );

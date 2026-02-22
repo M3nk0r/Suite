@@ -77,6 +77,11 @@ class Migrations {
     constraint ShoppingListItem_pk
         primary key (shoppingListId, shoppingItemId)
 );
-  '''
+  ''',
+    8: '''CREATE VIEW ShoppingListItemView as
+select sli.*, si.name, c.name as category, c.color as categoryColor from ShoppingListItem sli
+left join ShoppingItem si on sli.shoppingItemId = si.id
+left join Category c on si.categoryId = c.id and si.categoryUserId = c.userId;
+''',
   };
 }

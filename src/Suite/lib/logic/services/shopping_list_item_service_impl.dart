@@ -1,4 +1,6 @@
+import 'package:suite/cross_cutting/entities/shopping_list.dart';
 import 'package:suite/cross_cutting/entities/shopping_list_item.dart';
+import 'package:suite/cross_cutting/views/shopping_list_item_view.dart';
 import 'package:suite/data/db_context.dart';
 import 'package:suite/logic/services/interfaces/shopping_list_item_service.dart';
 
@@ -54,5 +56,22 @@ class ShoppingListItemServiceImpl extends ShoppingListItemService {
     );
 
     await db.close();
+  }
+
+  @override
+  Future<List<ShoppingListItemView>> readViewByShoppingList(
+    ShoppingList shoppingList,
+  ) async {
+    final db = await context.open();
+
+    final List<Map<String, Object?>> maps = await db.query(
+      ShoppingListItemView.dbName,
+      where: 'shoppingListId = ?',
+      whereArgs: [shoppingList.id],
+    );
+
+    await db.close();
+
+    return [for (final map in maps) ShoppingListItemView.fromMap(map)];
   }
 }

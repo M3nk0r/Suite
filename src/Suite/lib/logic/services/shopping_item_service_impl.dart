@@ -53,4 +53,19 @@ class ShoppingItemServiceImpl extends ShoppingItemService {
 
     await db.close();
   }
+
+  @override
+  Future<List<ShoppingItem>> readByName(String name) async {
+    final db = await context.open();
+
+    final List<Map<String, Object?>> maps = await db.query(
+      ShoppingItem.dbName,
+      where: 'name LIKE ?',
+      whereArgs: ['%$name%'],
+    );
+
+    await db.close();
+
+    return [for (final map in maps) ShoppingItem.fromMap(map)];
+  }
 }

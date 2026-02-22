@@ -14,7 +14,8 @@ import 'package:flutter/material.dart' as _i18;
 import 'package:suite/cross_cutting/entities/category.dart' as _i19;
 import 'package:suite/cross_cutting/entities/room.dart' as _i17;
 import 'package:suite/cross_cutting/entities/shopping_item.dart' as _i20;
-import 'package:suite/cross_cutting/entities/task.dart' as _i21;
+import 'package:suite/cross_cutting/entities/shopping_list.dart' as _i21;
+import 'package:suite/cross_cutting/entities/task.dart' as _i22;
 import 'package:suite/ui/pages/add_task_page.dart' as _i1;
 import 'package:suite/ui/pages/base_page.dart' as _i2;
 import 'package:suite/ui/pages/home_page.dart' as _i5;
@@ -383,18 +384,52 @@ class ShoppingItemRouteArgs {
 
 /// generated route for
 /// [_i13.ShoppingListPage]
-class ShoppingListRoute extends _i16.PageRouteInfo<void> {
-  const ShoppingListRoute({List<_i16.PageRouteInfo>? children})
-    : super(ShoppingListRoute.name, initialChildren: children);
+class ShoppingListRoute extends _i16.PageRouteInfo<ShoppingListRouteArgs> {
+  ShoppingListRoute({
+    required _i21.ShoppingList shoppingList,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
+  }) : super(
+         ShoppingListRoute.name,
+         args: ShoppingListRouteArgs(shoppingList: shoppingList, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'ShoppingListRoute';
 
   static _i16.PageInfo page = _i16.PageInfo(
     name,
     builder: (data) {
-      return const _i13.ShoppingListPage();
+      final args = data.argsAs<ShoppingListRouteArgs>();
+      return _i13.ShoppingListPage(
+        shoppingList: args.shoppingList,
+        key: args.key,
+      );
     },
   );
+}
+
+class ShoppingListRouteArgs {
+  const ShoppingListRouteArgs({required this.shoppingList, this.key});
+
+  final _i21.ShoppingList shoppingList;
+
+  final _i18.Key? key;
+
+  @override
+  String toString() {
+    return 'ShoppingListRouteArgs{shoppingList: $shoppingList, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ShoppingListRouteArgs) return false;
+    return shoppingList == other.shoppingList && key == other.key;
+  }
+
+  @override
+  int get hashCode => shoppingList.hashCode ^ key.hashCode;
 }
 
 /// generated route for
@@ -417,7 +452,7 @@ class ShoppingRoute extends _i16.PageRouteInfo<void> {
 /// [_i15.TaskDetailPage]
 class TaskDetailRoute extends _i16.PageRouteInfo<TaskDetailRouteArgs> {
   TaskDetailRoute({
-    required _i21.Task task,
+    required _i22.Task task,
     _i18.Key? key,
     List<_i16.PageRouteInfo>? children,
   }) : super(
@@ -440,7 +475,7 @@ class TaskDetailRoute extends _i16.PageRouteInfo<TaskDetailRouteArgs> {
 class TaskDetailRouteArgs {
   const TaskDetailRouteArgs({required this.task, this.key});
 
-  final _i21.Task task;
+  final _i22.Task task;
 
   final _i18.Key? key;
 
